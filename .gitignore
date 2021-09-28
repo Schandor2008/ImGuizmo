@@ -16,3 +16,7 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+
+build/
+.*/
+
