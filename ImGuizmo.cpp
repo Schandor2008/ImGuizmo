@@ -740,11 +740,11 @@ namespace IMGUIZMO_NAMESPACE
    static Context gContext;
 
    static const vec_t directionUnary[3] = { makeVect(1.f, 0.f, 0.f), makeVect(0.f, 1.f, 0.f), makeVect(0.f, 0.f, 1.f) };
-   static const ImU32 directionColor[3] = { IM_COL32(0xAA, 0, 0, 0xFF), IM_COL32(0, 0xAA, 0, 0xFF), IM_COL32(0, 0, 0xAA, 0XFF) };
+   static const ImU32 directionColor[3] = { IM_COL32(0xFF, 0, 0, 0xFF), IM_COL32(0, 0xFF, 0, 0xFF), IM_COL32(0, 0, 0xFF, 0XFF) };
 
    // Alpha: 100%: FF, 87%: DE, 70%: B3, 54%: 8A, 50%: 80, 38%: 61, 12%: 1F
-   static const ImU32 planeColor[3] = { IM_COL32(0xAA, 0, 0, 0x61), IM_COL32(0, 0xAA, 0, 0x61), IM_COL32(0, 0, 0xAA, 0x61) };
-   static const ImU32 selectionColor = IM_COL32(0xFF, 0x80, 0x10, 0x8A);
+   static const ImU32 planeColor[3] = { IM_COL32(0xFF, 0, 0, 0x61), IM_COL32(0, 0xFF, 0, 0x61), IM_COL32(0, 0, 0xFF, 0x61) };
+   static const ImU32 selectionColor = IM_COL32(0xFF, 0xFF, 0, 0xFF);
    static const ImU32 inactiveColor = IM_COL32(0x99, 0x99, 0x99, 0x99);
    static const ImU32 translationLineColor = IM_COL32(0xAA, 0xAA, 0xAA, 0xAA);
    static const char* translationInfoMask[] = { "X : %5.3f", "Y : %5.3f", "Z : %5.3f",
@@ -1229,7 +1229,7 @@ namespace IMGUIZMO_NAMESPACE
          }
          if (!gContext.mbUsing || usingAxis)
          {
-            drawList->AddPolyline(circlePos, circleMul* halfCircleSegmentCount + 1, colors[3 - axis], false, 2);
+            drawList->AddPolyline(circlePos, circleMul* halfCircleSegmentCount + 1, colors[3 - axis], false, 5);
          }
 
          float radiusAxis = sqrtf((ImLengthSqr(worldToPos(gContext.mModel.v.position, gContext.mViewProjection) - circlePos[0])));
@@ -1330,7 +1330,7 @@ namespace IMGUIZMO_NAMESPACE
 
                if (!hasTranslateOnAxis || gContext.mbUsing)
                {
-                  drawList->AddLine(baseSSpace, worldDirSSpace, colors[i + 1], 3.f);
+                  drawList->AddLine(baseSSpace, worldDirSSpace, colors[i + 1], 5.f);
                }
                drawList->AddCircleFilled(worldDirSSpace, 6.f, colors[i + 1]);
 
@@ -1483,7 +1483,7 @@ namespace IMGUIZMO_NAMESPACE
                ImVec2 baseSSpace = worldToPos(dirAxis * 0.1f * gContext.mScreenFactor, gContext.mMVP);
                ImVec2 worldDirSSpace = worldToPos(dirAxis * gContext.mScreenFactor, gContext.mMVP);
 
-               drawList->AddLine(baseSSpace, worldDirSSpace, colors[i + 1], 3.f);
+               drawList->AddLine(baseSSpace, worldDirSSpace, colors[i + 1], 5.f);
 
                // Arrow head begin
                ImVec2 dir(origin - worldDirSSpace);
@@ -1514,7 +1514,7 @@ namespace IMGUIZMO_NAMESPACE
                   vec_t cornerWorldPos = (dirPlaneX * quadUV[j * 2] + dirPlaneY * quadUV[j * 2 + 1]) * gContext.mScreenFactor;
                   screenQuadPts[j] = worldToPos(cornerWorldPos, gContext.mMVP);
                }
-               drawList->AddPolyline(screenQuadPts, 4, directionColor[i], true, 1.0f);
+               drawList->AddPolyline(screenQuadPts, 4, directionColor[i], true, 2.0f);
                drawList->AddConvexPolyFilled(screenQuadPts, 4, colors[i + 4]);
             }
          }
